@@ -111,9 +111,11 @@ contract StressTestScript is Script, Config, Test {
         poolAddress = vm.envAddress("POOL_ADDRESS");
         tokenAAddress = vm.envAddress("TOKEN_A");
         tokenBAddress = vm.envAddress("TOKEN_B");
+        uint256 NUM_ITERATIONS = vm.envUint("NUM_ITERATIONS");
+        if (NUM_ITERATIONS == 0) revert("NUM_ITERATIONS not set");
 
         vm.startBroadcast(deployerPrivateKey);
-        stressTest(1);
+        stressTest(NUM_ITERATIONS);
         vm.stopBroadcast();
     }
 }
